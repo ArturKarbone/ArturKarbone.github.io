@@ -141,7 +141,7 @@
 
 <p><img src="/images/nuget_nunit.png" title="Nunit via Nuget" alt="" /></p>
 
-<p>For my tests I&rsquo;m going to use a notation from fabulous Roy Osherove&rsquo;s book <a href="http://www.manning.com/osherove/">&ldquo;The Art of Unit Testing in .NET&rdquo;</a>. The gist of the notation is that the followin naming convention is used for the test methods:</p>
+<p>For my tests I&rsquo;m going to use a notation from fabulous Roy Osherove&rsquo;s book <a href="http://www.manning.com/osherove/">&ldquo;The Art of Unit Testing in .NET&rdquo;</a>. The gist of the notation is that the following naming convention is used for the test methods:</p>
 
 <p><strong>[Method Under Test]_[Context]_[Expected_Result]</strong></p>
 
@@ -222,9 +222,7 @@
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="na">   [Test]</span>
-</span><span class='line'><span class="na">        [Test]</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="na">        [Test]</span>
 </span><span class='line'>        <span class="k">public</span> <span class="k">void</span> <span class="nf">Lines_NullString_ReturnsEmptyList</span><span class="p">()</span>
 </span><span class='line'>        <span class="p">{</span>
 </span><span class='line'>            <span class="c1">//Arrange &amp; Act</span>
@@ -250,7 +248,7 @@
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="na">[Test]</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="na">    [Test]</span>
 </span><span class='line'>    <span class="k">public</span> <span class="k">void</span> <span class="nf">Lines_OneLineString_ReturnsListWithOneElement</span><span class="p">()</span>
 </span><span class='line'>    <span class="p">{</span>
 </span><span class='line'>        <span class="c1">//Arrange &amp; Act</span>
@@ -406,7 +404,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>That&rsquo;s it. In my opinion Roy Osherove&rsquo;s tests naming notation is great. At least i haven&rsquo;t seen anything better for .NET world yet.
+<p>That&rsquo;s it. In my opinion Roy Osherove&rsquo;s <strong>[Method Under Test]_[Context]_[Expected_Result]</strong> naming notation is great. At least i haven&rsquo;t seen anything better for .NET world yet.
 After writing specs for piles of Ruby code using Rspec i&rsquo;m really in love with its syntax though. So In the next post i&rsquo;m going to leverage Rspec and IronRuby to prove a concept that we can cover .NET code with tests written in Ruby.</p>
 </div>
   
