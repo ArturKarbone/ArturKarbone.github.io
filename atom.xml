@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[My Octopress Blog]]></title>
+  <link href="http://ArturKarbone.github.io/atom.xml" rel="self"/>
+  <link href="http://ArturKarbone.github.io/"/>
+  <updated>2014-02-25T22:23:47+02:00</updated>
+  <id>http://ArturKarbone.github.io/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[The Missing 'Lines' Method in .NET]]></title>
+    <link href="http://ArturKarbone.github.io/blog/2014/02/25/missing-lines-method-in-net/"/>
+    <updated>2014-02-25T20:43:23+02:00</updated>
+    <id>http://ArturKarbone.github.io/blog/2014/02/25/missing-lines-method-in-net</id>
+    <content type="html"><![CDATA[<p>In my .NET project i needed a method to split a multi-line string into multiple lines. Ruby has such a method out of the box. Here is an example:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">my_multi_line_text</span> <span class="o">=</span> <span class="sx">%q{my</span>
+</span><span class='line'><span class="sx">         »  multiline</span>
+</span><span class='line'><span class="sx">         »  text}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="n">my_multi_line_text</span><span class="o">.</span><span class="n">lines</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>here is an output:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">[</span>
+</span><span class='line'>  <span class="o">[</span>0<span class="o">]</span> <span class="s2">&quot;my\n&quot;</span>,
+</span><span class='line'>  <span class="o">[</span>1<span class="o">]</span> <span class="s2">&quot;multiline\n&quot;</span>,
+</span><span class='line'>  <span class="o">[</span>2<span class="o">]</span> <span class="s2">&quot;text&quot;</span>
+</span><span class='line'><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Lets go ahead and implement &ldquo;Lines&rdquo; extension method in .NET. Lets attack it via <strong>TDD approach</strong>.</p>
+
+<p>At first we need to create two Class Library projects in Visual Studio. First &ndash; Extensions and Second Extensions.Tests:</p>
+
+<p><img src="http://ArturKarbone.github.io/images/visual_studio.png" title="Visual Studio window with two projects" alt="" /></p>
+
+<p>Lets add Nunit package to our test project:</p>
+
+<p><img src="http://ArturKarbone.github.io/images/visual_studio_nuget.png" title="Launching Nuget" alt="" /></p>
+
+<p>Here it is:</p>
+
+<p><img src="http://ArturKarbone.github.io/images/nuget_nunit.png" title="Nunit via Nuget" alt="" /></p>
+
+<p>For my tests I&rsquo;m going to use a notation from fabulous Roy Osherove&rsquo;s book <a href="http://www.manning.com/osherove/">&ldquo;The Art of Unit Testing in .NET&rdquo;</a>. The gist of the notation is that the following naming convention is used for the test methods:</p>
+
+<p><strong>[Method Under Test]_[Context]_[Expected_Result]</strong></p>
+
+<p>it&rsquo;s time to write our first test:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="na">[TestFixture]</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">StringExtensionsTests</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="na">    [Test]</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">void</span> <span class="nf">Lines_EmptyString_ReturnsEmptyList</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">//Arrange &amp; Act</span>
+</span><span class='line'>        <span class="kt">var</span> <span class="n">lines</span> <span class="p">=</span> <span class="s">&quot;&quot;</span><span class="p">.</span><span class="n">Lines</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">//Assert</span>
+</span><span class='line'>        <span class="n">Assert</span><span class="p">.</span><span class="n">IsEmpty</span><span class="p">(</span><span class="n">lines</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now lets write just enough code to get both projects compiled:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'>    <span class="k">public</span> <span class="k">static</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">Lines</span><span class="p">(</span><span class="k">this</span> <span class="kt">string</span> <span class="n">input</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The test will fail for sure. That&rsquo;s ok. I want to see my tests failed first (I don&rsquo;t want to have an illusion that my code works. I want to make it working). Ok lets go ahead and make it green:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'>  <span class="k">public</span> <span class="k">static</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">Lines</span><span class="p">(</span><span class="k">this</span> <span class="kt">string</span> <span class="n">input</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="k">if</span> <span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">IsNullOrEmpty</span><span class="p">(</span><span class="n">input</span><span class="p">))</span>
+</span><span class='line'>                <span class="p">{</span>
+</span><span class='line'>                    <span class="k">return</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
+</span><span class='line'>                <span class="p">}</span>
+</span><span class='line'>                <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
+</span><span class='line'>            <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now let check against Null String:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="na">        [Test]</span>
+</span><span class='line'>        <span class="k">public</span> <span class="k">void</span> <span class="nf">Lines_NullString_ReturnsEmptyList</span><span class="p">()</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="c1">//Arrange &amp; Act</span>
+</span><span class='line'>            <span class="kt">string</span> <span class="n">nullInput</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+</span><span class='line'>            <span class="kt">var</span> <span class="n">lines</span> <span class="p">=</span> <span class="n">nullInput</span><span class="p">.</span><span class="n">Lines</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c1">//Assert</span>
+</span><span class='line'>            <span class="n">Assert</span><span class="p">.</span><span class="n">IsEmpty</span><span class="p">(</span><span class="n">lines</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Ok we are good to go and implement a test for a single line string:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="na">    [Test]</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">void</span> <span class="nf">Lines_OneLineString_ReturnsListWithOneElement</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">//Arrange &amp; Act</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="kt">var</span> <span class="n">lines</span> <span class="p">=</span> <span class="s">&quot;Test Message&quot;</span><span class="p">.</span><span class="n">Lines</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">//Assert</span>
+</span><span class='line'>        <span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="n">lines</span><span class="p">.</span><span class="n">Count</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="n">lines</span><span class="p">.</span><span class="n">First</span><span class="p">(),</span> <span class="s">&quot;Test Message&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Lets make this test green by adding some extra logic:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'> <span class="k">public</span> <span class="k">static</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">Lines</span><span class="p">(</span><span class="k">this</span> <span class="kt">string</span> <span class="n">input</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">IsNullOrEmpty</span><span class="p">(</span><span class="n">input</span><span class="p">))</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="k">return</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>            <span class="k">else</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="k">return</span> <span class="n">input</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="k">new</span> <span class="n">String</span><span class="p">[]</span> <span class="p">{</span> <span class="n">Environment</span><span class="p">.</span><span class="n">NewLine</span> <span class="p">},</span><span class="n">StringSplitOptions</span><span class="p">.</span><span class="n">None</span><span class="p">).</span><span class="n">Select</span><span class="p">(</span><span class="n">s</span><span class="p">=&gt;</span><span class="n">s</span><span class="p">.</span><span class="n">Trim</span><span class="p">()).</span><span class="n">ToList</span><span class="p">();</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now we can write couple of tests to be sure that multi-line strings work as well:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="na">    [Test]</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">void</span> <span class="nf">Lines_MultiLineString_ReturnsListWithMultipleElements</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">//Arrange &amp; Act</span>
+</span><span class='line'>        <span class="kt">string</span> <span class="n">text</span> <span class="p">=</span> <span class="s">@&quot;Test Message1</span>
+</span><span class='line'><span class="s">                        Test Message2</span>
+</span><span class='line'><span class="s">                        Test Message3&quot;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="kt">var</span> <span class="n">lines</span> <span class="p">=</span> <span class="n">text</span><span class="p">.</span><span class="n">Lines</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">//Assert</span>
+</span><span class='line'>        <span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="n">lines</span><span class="p">.</span><span class="n">Count</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="s">&quot;Test Message1&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="s">&quot;Test Message2&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="m">2</span><span class="p">],</span> <span class="s">&quot;Test Message3&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="na">    [Test]</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">void</span> <span class="nf">Lines_YetAnotherMultiLineString_ReturnsListWithMultipleElements</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">//Arrange &amp; Act</span>
+</span><span class='line'>        <span class="kt">string</span> <span class="n">text</span> <span class="p">=</span> <span class="s">@&quot;Hello,</span>
+</span><span class='line'><span class="s">                        World!!!&quot;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="kt">var</span> <span class="n">lines</span> <span class="p">=</span> <span class="n">text</span><span class="p">.</span><span class="n">Lines</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">//Assert</span>
+</span><span class='line'>        <span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="n">lines</span><span class="p">.</span><span class="n">Count</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="s">&quot;Hello,&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="s">&quot;World!!!&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The last two tests violate <strong>DRY</strong> pricinple, since they do kind of the same with different parameters though.</p>
+
+<p>Nunit framework can easily resolve that issue via <strong>TestCase</strong> attribute, so we can provide multiple test cases for the same testing code:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="na">        [TestCase(&quot;Test Message1\r\nTest Message2\r\nTest Message3&quot;, new string[]</span> <span class="p">{</span><span class="s">&quot;Test Message1&quot;</span><span class="p">,</span><span class="s">&quot;Test Message2&quot;</span><span class="p">,</span><span class="s">&quot;Test Message3&quot;</span><span class="p">})]</span>
+</span><span class='line'><span class="na">        [TestCase(&quot;Hello,\r\nWorld!!!&quot;, new string[]</span> <span class="p">{</span> <span class="s">&quot;Hello,&quot;</span><span class="p">,</span> <span class="s">&quot;World!!!&quot;</span> <span class="p">})]</span>
+</span><span class='line'>        <span class="k">public</span> <span class="k">void</span> <span class="nf">Lines_MultiLineString_ReturnsListWithMultipleElements</span><span class="p">(</span><span class="kt">string</span> <span class="n">text</span><span class="p">,</span> <span class="kt">string</span> <span class="p">[]</span> <span class="n">expectedLines</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="kt">var</span> <span class="n">lines</span> <span class="p">=</span> <span class="n">text</span><span class="p">.</span><span class="n">Lines</span><span class="p">();</span>
+</span><span class='line'>            <span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">expectedLines</span><span class="p">.</span><span class="n">ToList</span><span class="p">());</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Knowing that we can refactor null/empty string tests and combine them into one test:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="na">        [Test]</span>
+</span><span class='line'><span class="na">        [TestCase(null)]</span>
+</span><span class='line'><span class="na">        [TestCase(&quot;&quot;)]</span>
+</span><span class='line'>        <span class="k">public</span> <span class="k">void</span> <span class="nf">Lines_NullOrEmptyString_ReturnsEmptyList</span><span class="p">(</span><span class="kt">string</span> <span class="n">inputString</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="kt">var</span> <span class="n">lines</span> <span class="p">=</span> <span class="n">inputString</span><span class="p">.</span><span class="n">Lines</span><span class="p">();</span>
+</span><span class='line'>            <span class="c1">//Assert</span>
+</span><span class='line'>            <span class="n">Assert</span><span class="p">.</span><span class="n">IsEmpty</span><span class="p">(</span><span class="n">lines</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That&rsquo;s it. In my opinion Roy Osherove&rsquo;s <strong>[Method Under Test]_[Context]_[Expected_Result]</strong> naming notation is great. At least i haven&rsquo;t seen anything better for .NET world yet.
+After writing specs for piles of Ruby code using Rspec i&rsquo;m really in love with its syntax though. So In the next post i&rsquo;m going to leverage Rspec and IronRuby to prove a concept that we can cover .NET code with tests written in Ruby.</p>
+]]></content>
+  </entry>
+  
+</feed>
