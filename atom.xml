@@ -4,7 +4,7 @@
   <title><![CDATA[My Octopress Blog]]></title>
   <link href="http://ArturKarbone.github.io/atom.xml" rel="self"/>
   <link href="http://ArturKarbone.github.io/"/>
-  <updated>2014-11-03T20:58:42+02:00</updated>
+  <updated>2014-11-04T00:14:56+02:00</updated>
   <id>http://ArturKarbone.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -25,6 +25,312 @@
 <li>How to connect to an existing blog <a href="http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/">http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/</a></li>
 </ul>
 
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Missing Lines Method in .NET]]></title>
+    <link href="http://ArturKarbone.github.io/blog/2014/11/03/missing-Lines-method/"/>
+    <updated>2014-11-03T20:39:12+02:00</updated>
+    <id>http://ArturKarbone.github.io/blog/2014/11/03/missing-Lines-method</id>
+    <content type="html"><![CDATA[<p>In my .NET project I needed a method to split a multi-line string into multiple lines. Ruby has such a method out of the box. Here is an example:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>my_multi_line_text = %q{my
+</span><span class='line'>   »  multiline
+</span><span class='line'>   »  text}
+</span><span class='line'>my_multi_line_text.lines</span></code></pre></td></tr></table></div></figure>
+
+
+<p>here is an output:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[
+</span><span class='line'>[0] "my\n",
+</span><span class='line'>[1] "multiline\n",
+</span><span class='line'>[2] "text"
+</span><span class='line'>]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Lets go ahead and implement “Lines” extension method in .NET. Lets attack it via <strong>TDD approach</strong>.</p>
+
+<p>At first we need to create two Class Library projects in Visual Studio. First – Extensions and Second Extensions.Tests:</p>
+
+<p> &ldquo;Visual Studio window with two projects&rdquo;</p>
+
+<p>Lets add Nunit package to our test project:</p>
+
+<p>&ldquo;Launching Nuget&rdquo;</p>
+
+<p>Here it is:</p>
+
+<p>&ldquo;Nunit via Nuget&rdquo;</p>
+
+<p>For my tests I’m going to use a notation from fabulous Roy Osherove’s book <a href="http://www.manning.com/osherove/">“The Art of Unit Testing in .NET”</a>. The gist of the notation is that the following naming convention is used for the test methods:</p>
+
+<p><strong>[Method Under Test]<em>[Context]</em>[Expected_Result]</strong></p>
+
+<p>it’s time to write our first test:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[TestFixture]
+</span><span class='line'>class StringExtensionsTests
+</span><span class='line'>{
+</span><span class='line'>[Test]
+</span><span class='line'>public void Lines_EmptyString_ReturnsEmptyList()
+</span><span class='line'>{
+</span><span class='line'>  //Arrange & Act
+</span><span class='line'>  var lines = "".Lines();
+</span><span class='line'>
+</span><span class='line'>  //Assert
+</span><span class='line'>  Assert.IsEmpty(lines);
+</span><span class='line'>}
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now lets write just enough code to get both projects compiled:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public static List&lt;string&gt; Lines(this string input)
+</span><span class='line'>  {
+</span><span class='line'>      return null;
+</span><span class='line'>  }
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The test will fail for sure. That’s ok. I want to see my tests failed first (I don’t want to have an illusion that my code works. I want to make it working). Ok lets go ahead and make it green:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'> public static List&lt;string&gt; Lines(this string input)
+</span><span class='line'>      {
+</span><span class='line'>          if (string.IsNullOrEmpty(input))
+</span><span class='line'>          {
+</span><span class='line'>              return new List&lt;string&gt;();
+</span><span class='line'>          }
+</span><span class='line'>          return null;
+</span><span class='line'>      }</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now let check against Null String:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'> [Test]
+</span><span class='line'>  public void Lines_NullString_ReturnsEmptyList()
+</span><span class='line'>  {
+</span><span class='line'>      //Arrange & Act
+</span><span class='line'>      string nullInput = null;
+</span><span class='line'>      var lines = nullInput.Lines();
+</span><span class='line'>
+</span><span class='line'>      //Assert
+</span><span class='line'>      Assert.IsEmpty(lines);
+</span><span class='line'>  }
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Ok we are good to go and implement a test for a single line string:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[Test]
+</span><span class='line'>public void Lines_OneLineString_ReturnsListWithOneElement()
+</span><span class='line'>{
+</span><span class='line'>  //Arrange & Act
+</span><span class='line'>
+</span><span class='line'>  var lines = "Test Message".Lines();
+</span><span class='line'>
+</span><span class='line'>  //Assert
+</span><span class='line'>  Assert.AreEqual(lines.Count, 1);
+</span><span class='line'>  Assert.AreEqual(lines.First(), "Test Message");
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Lets make this test green by adding some extra logic:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public static List&lt;string&gt; Lines(this string input)
+</span><span class='line'>  {
+</span><span class='line'>      if (string.IsNullOrEmpty(input))
+</span><span class='line'>      {
+</span><span class='line'>          return new List&lt;string&gt;();
+</span><span class='line'>      }
+</span><span class='line'>      else
+</span><span class='line'>      {
+</span><span class='line'>          return input.Split(new String[] { Environment.NewLine },StringSplitOptions.None).Select(s=&gt;s.Trim()).ToList();
+</span><span class='line'>      }
+</span><span class='line'>  }
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now we can write couple of tests to be sure that multi-line strings work as well:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[Test]
+</span><span class='line'>public void Lines_MultiLineString_ReturnsListWithMultipleElements()
+</span><span class='line'>{
+</span><span class='line'>  //Arrange & Act
+</span><span class='line'>  string text = @"Test Message1
+</span><span class='line'>                  Test Message2
+</span><span class='line'>                  Test Message3";
+</span><span class='line'>
+</span><span class='line'>  var lines = text.Lines();
+</span><span class='line'>
+</span><span class='line'>  //Assert
+</span><span class='line'>  Assert.AreEqual(lines.Count, 3);
+</span><span class='line'>  Assert.AreEqual(lines[0], "Test Message1");
+</span><span class='line'>  Assert.AreEqual(lines[1], "Test Message2");
+</span><span class='line'>  Assert.AreEqual(lines[2], "Test Message3");
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>[Test]
+</span><span class='line'>public void Lines_YetAnotherMultiLineString_ReturnsListWithMultipleElements()
+</span><span class='line'>{
+</span><span class='line'>  //Arrange & Act
+</span><span class='line'>  string text = @"Hello,
+</span><span class='line'>                  World!!!";
+</span><span class='line'>
+</span><span class='line'>  var lines = text.Lines();
+</span><span class='line'>
+</span><span class='line'>  //Assert
+</span><span class='line'>  Assert.AreEqual(lines.Count, 2);
+</span><span class='line'>  Assert.AreEqual(lines[0], "Hello,");
+</span><span class='line'>  Assert.AreEqual(lines[1], "World!!!");
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The last two tests violate <strong>DRY</strong> principle, since they do kind of the same with different parameters though.</p>
+
+<p>Nunit framework can easily resolve that issue via <strong>TestCase</strong> attribute, so we can provide multiple test cases for the same testing code:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  [TestCase("Test Message1\r\nTest Message2\r\nTest Message3", new string[] {"Test Message1","Test Message2","Test Message3"})]
+</span><span class='line'>  [TestCase("Hello,\r\nWorld!!!", new string[] { "Hello,", "World!!!" })]
+</span><span class='line'>  public void Lines_MultiLineString_ReturnsListWithMultipleElements(string text, string [] expectedLines)
+</span><span class='line'>  {
+</span><span class='line'>      var lines = text.Lines();
+</span><span class='line'>      Assert.AreEqual(lines, expectedLines.ToList());
+</span><span class='line'>  }
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Knowing that we can refactor null/empty string tests and combine them into one test:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[Test]
+</span><span class='line'>  [TestCase(null)]
+</span><span class='line'>  [TestCase("")]
+</span><span class='line'>  public void Lines_NullOrEmptyString_ReturnsEmptyList(string inputString)
+</span><span class='line'>  {
+</span><span class='line'>      var lines = inputString.Lines();
+</span><span class='line'>      //Assert
+</span><span class='line'>      Assert.IsEmpty(lines);
+</span><span class='line'>  }</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That&rsquo;s it. In my opinion Roy Osherove&rsquo;s <strong>[Method Under Test] <strong>[Context] </strong>[Expected_Result]</strong> naming notation is great. At least I haven&rsquo;t seen anything better for .NET world yet.
+After writing specs for piles of Ruby code using Rspec I&rsquo;m really in love with its syntax though. So In the next post I&rsquo;m going to leverage Rspec and IronRuby to prove a concept that we can cover .NET code with tests written in Ruby.</p>
 ]]></content>
   </entry>
   

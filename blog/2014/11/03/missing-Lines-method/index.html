@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>My Octopress Blog</title>
+  <title>The Missing Lines Method in .NET - My Octopress Blog</title>
   <meta name="author" content="Your Name">
 
   
-  <meta name="description" content="It&rsquo;s time to resume my blog. At the moment I&rsquo;m working in Windows environement and I found these two articles really helpful for me: How &hellip;">
+  <meta name="description" content="In my .NET project I needed a method to split a multi-line string into multiple lines. Ruby has such a method out of the box. Here is an example: 1
+2 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://ArturKarbone.github.io">
+  <link rel="canonical" href="http://ArturKarbone.github.io/blog/2014/11/03/missing-Lines-method">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
@@ -63,15 +64,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/11/03/resuming-my-octopress-blog-from-windows-environment/">Resuming My Octopress Blog From Windows Environment</a></h1>
+      <h1 class="entry-title">The Missing Lines Method in .NET</h1>
     
     
       <p class="meta">
@@ -94,49 +92,7 @@
   </header>
 
 
-  <div class="entry-content"><p>It&rsquo;s time to resume my blog. At the moment I&rsquo;m working in Windows environement and I found these two articles really helpful for me:</p>
-
-<ul>
-<li>How to install Octopress on Windows <a href="http://thaiat.github.io/blog/2014/03/13/how-to-install-and-use-octopress-on-windows/">http://thaiat.github.io/blog/2014/03/13/how-to-install-and-use-octopress-on-windows/</a></li>
-<li>How to connect to an existing blog <a href="http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/">http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/</a></li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/11/03/missing-Lines-method/">The Missing Lines Method in .NET</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-11-03T20:39:12+02:00" pubdate data-updated="true">Nov 3<span>rd</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>In my .NET project I needed a method to split a multi-line string into multiple lines. Ruby has such a method out of the box. Here is an example:</p>
+<div class="entry-content"><p>In my .NET project I needed a method to split a multi-line string into multiple lines. Ruby has such a method out of the box. Here is an example:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -435,18 +391,59 @@
 <p>That&rsquo;s it. In my opinion Roy Osherove&rsquo;s <strong>[Method Under Test] <strong>[Context] </strong>[Expected_Result]</strong> naming notation is great. At least I haven&rsquo;t seen anything better for .NET world yet.
 After writing specs for piles of Ruby code using Rspec I&rsquo;m really in love with its syntax though. So In the next post I&rsquo;m going to leverage Rspec and IronRuby to prove a concept that we can cover .NET code with tests written in Ruby.</p>
 </div>
+
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Your Name</span></span>
+
+      
+
+
+
+
+
+
+
+
   
 
 
-    </article>
+<time datetime="2014-11-03T20:39:12+02:00" pubdate data-updated="true">Nov 3<span>rd</span>, 2014</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
   
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ArturKarbone.github.io/blog/2014/11/03/missing-Lines-method/" data-via="" data-counturl="http://ArturKarbone.github.io/blog/2014/11/03/missing-Lines-method/" >Tweet</a>
+  
+  
+  
 </div>
+
+    
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/11/03/resuming-my-octopress-blog-from-windows-environment/" title="Next Post: Resuming my Octopress blog from Windows environment">Resuming my Octopress blog from Windows environment &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -471,6 +468,7 @@ After writing specs for piles of Ruby code using Rspec I&rsquo;m really in love 
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -485,7 +483,10 @@ After writing specs for piles of Ruby code using Rspec I&rsquo;m really in love 
       var disqus_shortname = 'arturkarbone';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ArturKarbone.github.io/blog/2014/11/03/missing-Lines-method/';
+        var disqus_url = 'http://ArturKarbone.github.io/blog/2014/11/03/missing-Lines-method/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
