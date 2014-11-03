@@ -1,23 +1,21 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://ArturKarbone.github.io/blog/2014/02/25/missing-lines-method-in-net/</loc>
-        <lastmod>2014-02-25T22:23:47+02:00</lastmod>
-    </url>
-    <url>
-        <loc>http://ArturKarbone.github.io/blog/2014/04/10/order-of-before-filter-matters/</loc>
-        <lastmod>2014-04-10T21:42:22+03:00</lastmod>
+        <loc>
+            http://ArturKarbone.github.io/blog/2014/11/03/resuming-my-octopress-blog-from-windows-environment/
+        </loc>
+        <lastmod>2014-11-03T20:58:41+02:00</lastmod>
     </url>
     <url>
         <loc>http://ArturKarbone.github.io/blog/archives/</loc>
-        <lastmod>2014-04-10T21:42:22+03:00</lastmod>
-    </url>
-    <url>
-        <loc>http://ArturKarbone.github.io/robots.txt</loc>
-        <lastmod>2014-02-21T21:48:20+02:00</lastmod>
+        <lastmod>2014-11-03T20:58:41+02:00</lastmod>
     </url>
     <url>
         <loc>http://ArturKarbone.github.io/</loc>
-        <lastmod>2014-04-10T21:42:22+03:00</lastmod>
+        <lastmod>2014-11-03T20:58:41+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://ArturKarbone.github.io/robots.txt</loc>
+        <lastmod>2014-11-03T20:20:46+02:00</lastmod>
     </url>
 </urlset>
