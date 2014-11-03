@@ -4,7 +4,7 @@
   <title><![CDATA[My Octopress Blog]]></title>
   <link href="http://ArturKarbone.github.io/atom.xml" rel="self"/>
   <link href="http://ArturKarbone.github.io/"/>
-  <updated>2014-11-04T00:14:56+02:00</updated>
+  <updated>2014-11-04T00:22:45+02:00</updated>
   <id>http://ArturKarbone.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -30,9 +30,9 @@
   
   <entry>
     <title type="html"><![CDATA[The Missing Lines Method in .NET]]></title>
-    <link href="http://ArturKarbone.github.io/blog/2014/11/03/missing-Lines-method/"/>
-    <updated>2014-11-03T20:39:12+02:00</updated>
-    <id>http://ArturKarbone.github.io/blog/2014/11/03/missing-Lines-method</id>
+    <link href="http://ArturKarbone.github.io/blog/2014/02/25/missing-Lines-method/"/>
+    <updated>2014-02-25T20:39:12+02:00</updated>
+    <id>http://ArturKarbone.github.io/blog/2014/02/25/missing-Lines-method</id>
     <content type="html"><![CDATA[<p>In my .NET project I needed a method to split a multi-line string into multiple lines. Ruby has such a method out of the box. Here is an example:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
