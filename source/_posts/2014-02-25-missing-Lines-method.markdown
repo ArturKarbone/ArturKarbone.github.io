@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The missing Lines method in .NET"
-date: 2014-11-03 20:39:12 +0200
+date: 2014-02-25 20:39:12 +0200
 comments: true
 categories: 
 ---
