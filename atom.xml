@@ -4,7 +4,7 @@
   <title><![CDATA[My Octopress Blog]]></title>
   <link href="http://ArturKarbone.github.io/atom.xml" rel="self"/>
   <link href="http://ArturKarbone.github.io/"/>
-  <updated>2015-02-04T22:11:25+02:00</updated>
+  <updated>2015-02-05T12:25:43+02:00</updated>
   <id>http://ArturKarbone.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -12,6 +12,38 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Be Technically Prepared for the Demo]]></title>
+    <link href="http://ArturKarbone.github.io/blog/2015/02/05/be-technically-prepared-for-the-demo/"/>
+    <updated>2015-02-05T12:06:18+02:00</updated>
+    <id>http://ArturKarbone.github.io/blog/2015/02/05/be-technically-prepared-for-the-demo</id>
+    <content type="html"><![CDATA[<p>Yesterday I was doing a demo for one of our customers in their office.
+Nowadays Wi-Fi is a dime a dozen and usually companies have dedicated Wi-Fi networks for their Guests.</p>
+
+<p>But what if they don&rsquo;t? Or the client is not technical enough to help You, or their IT staff is not in place?
+Are You going to fail the demo or blame the customer and loose Your face?</p>
+
+<p>Her is my piece of advice: To be prepared I always have the following things in my suitcase: A smartphone with an ability to launch a Personal Hotspot ( the way to share your cellular data connection  via Wi-Fi, actually Apple can explain it better <a href="http://support.apple.com/en-us/HT4517">http://support.apple.com/en-us/HT4517</a>).
+All modern smartphones have this feature now.</p>
+
+<div style="text-align:center" markdown="1">
+<img src="http://km.support.apple.com/library/content/dam/edam/applecare/images/en_US/iphone/iphone5c/set_up_hotspot.png" width="300">
+</div>
+
+
+<p>My trick here is that everything is setup upfront. So I don&rsquo;t spend valuable customer&rsquo;s time doing some acrobatics setting up the connection. I just launch it and it works out of the box.</p>
+
+<p>As a last resort my suitcase always has thunderbolt-to-gigabit-ethernet-adapter (<a href="http://store.apple.com/us/product/MD463ZM/A/thunderbolt-to-gigabit-ethernet-adapter">http://store.apple.com/us/product/MD463ZM/A/thunderbolt-to-gigabit-ethernet-adapter</a>) for my MacBook and a small piece of RJ 45 cable.</p>
+
+<div style="text-align:center" markdown="1">
+<img src="http://store.storeimages.cdn-apple.com/4391/as-images.apple.com/is/image/AppleInc/aos/published/images/M/D4/MD463/MD463?wid=400&hei=400&fmt=jpeg&qlt=95&op_sharpen=0&resMode=bicub&op_usm=0.5,0.5,0,0&iccEmbed=0&layer=comp&.v=1400693440492">
+</div>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[HOWTO: Setup TFS Git Project]]></title>
