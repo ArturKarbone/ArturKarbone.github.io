@@ -4,7 +4,7 @@
   <title><![CDATA[My Octopress Blog]]></title>
   <link href="http://ArturKarbone.github.io/atom.xml" rel="self"/>
   <link href="http://ArturKarbone.github.io/"/>
-  <updated>2015-02-05T12:29:55+02:00</updated>
+  <updated>2015-02-06T10:34:10+02:00</updated>
   <id>http://ArturKarbone.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -12,6 +12,28 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Keep IIS Express Alive After Stopping Web Application]]></title>
+    <link href="http://ArturKarbone.github.io/blog/2015/02/06/keep-iis-express-alive-after-stopping-web-application/"/>
+    <updated>2015-02-06T10:22:37+02:00</updated>
+    <id>http://ArturKarbone.github.io/blog/2015/02/06/keep-iis-express-alive-after-stopping-web-application</id>
+    <content type="html"><![CDATA[<p>I faced a situation when IISExpress stops after I stop my debugging session. Not always convenient especially if I want to tweak/adjust some html/javascript code.
+The good news is that Visual Studio allows us to configure the behaviour.</p>
+
+<p>I&rsquo;ve figured out at least two ways to do that by <strong>unchecking</strong> &ldquo;Edit And Contitue&rdquo; feature:</p>
+
+<pre><code>1. Right click on your web project Properties-&gt;Web-&gt;Enable Edit And Continue 
+</code></pre>
+
+<p><img class="left" src="http://ArturKarbone.github.io/images/keep-iis-express-alive-after-stopping-web-application/IISExpress.png"></p>
+
+<pre><code>2. Go to Tools-&gt;Options-&gt;Debugging-&gt;Edit And Continue 
+</code></pre>
+
+<p><img class="left" src="http://ArturKarbone.github.io/images/keep-iis-express-alive-after-stopping-web-application/IISExpress2.png"></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Be Technically Prepared for the Demo]]></title>

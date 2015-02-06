@@ -9,8 +9,7 @@
   <meta name="author" content="Your Name">
 
   
-  <meta name="description" content="Yesterday I was doing a demo for one of our customers in their office.
-Nowadays Wi-Fi is a dime a dozen and usually companies have dedicated Wi-Fi &hellip;">
+  <meta name="description" content="I faced a situation when IISExpress stops after I stop my debugging session. Not always convenient especially if I want to tweak/adjust some html/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +65,55 @@ Nowadays Wi-Fi is a dime a dozen and usually companies have dedicated Wi-Fi &hel
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/02/06/keep-iis-express-alive-after-stopping-web-application/">Keep IIS Express Alive After Stopping Web Application</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-02-06T10:22:37+02:00" pubdate data-updated="true">Feb 6<span>th</span>, 2015</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I faced a situation when IISExpress stops after I stop my debugging session. Not always convenient especially if I want to tweak/adjust some html/javascript code.
+The good news is that Visual Studio allows us to configure the behaviour.</p>
+
+<p>I&rsquo;ve figured out at least two ways to do that by <strong>unchecking</strong> &ldquo;Edit And Contitue&rdquo; feature:</p>
+
+<pre><code>1. Right click on your web project Properties-&gt;Web-&gt;Enable Edit And Continue 
+</code></pre>
+
+<p><img class="left" src="/images/keep-iis-express-alive-after-stopping-web-application/IISExpress.png"></p>
+
+<pre><code>2. Go to Tools-&gt;Options-&gt;Debugging-&gt;Edit And Continue 
+</code></pre>
+
+<p><img class="left" src="/images/keep-iis-express-alive-after-stopping-web-application/IISExpress2.png"></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -674,6 +722,10 @@ After writing specs for piles of Ruby code using Rspec I&rsquo;m really in love 
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/02/06/keep-iis-express-alive-after-stopping-web-application/">Keep IIS Express Alive After Stopping Web Application</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/02/05/be-technically-prepared-for-the-demo/">Be Technically Prepared for the Demo</a>
       </li>
     
@@ -687,10 +739,6 @@ After writing specs for piles of Ruby code using Rspec I&rsquo;m really in love 
     
       <li class="post">
         <a href="/blog/2014/11/03/resuming-my-octopress-blog-from-windows-environment/">Resuming My Octopress Blog From Windows Environment</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/02/25/missing-Lines-method/">The Missing Lines Method in .NET</a>
       </li>
     
   </ul>
